@@ -1,0 +1,12 @@
+<p>register works!</p>
+<div *ngIf="!files.length" class="col-12 rmpm dropzone droparea" appDrag (files)="filesDropped($event)">
+	<div class="text-wrapper">
+		<div class="centered">Drop your file here!</div>
+	</div>
+</div>
+
+<div *ngFor="let file of files">
+  <img *ngIf="file" [src]="file.url" width="100px" height="100px">
+</div>
+
+<button type="button" (click)="upload()">Upload Image</button>

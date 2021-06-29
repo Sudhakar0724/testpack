@@ -1,0 +1,13 @@
+<p>contactus works!</p>
+<p >TestPrint</p>
+<div id="print-section">
+    <ul  *ngFor = "let day of arrayOne(4), let i = index">
+        <li *ngFor = "let meal of mainMealPreferencs[i],let j = index" class="cls-cursor">
+            <span [ngClass] = "{'cls-target':meal['status'+i] == 'Y'}" (click)=addMeal(j,i) >{{meal.type}}</span>
+        </li>
+    </ul>
+</div>
+
+
+<button class="btn btn-primary" printSectionId="print-section" ngxPrint>SavePdf</button> 
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script> -->

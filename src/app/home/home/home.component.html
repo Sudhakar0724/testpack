@@ -1,0 +1,72 @@
+<form [formGroup]="Dynamictable">
+    <ng-container formArrrayName="RowWise">
+        <ng-container formGroupName="{{i}}" *ngFor="let data of addrows; let i =index">
+
+         <input type="text" formControlName="date_period">
+        <button (click)="addrow()">Add</button>
+    </ng-container>
+    </ng-container>
+    <div>
+         <button (click)="generate()">Generate</button>
+    </div>
+ <table class="table cls-matrix-table" *ngIf="tableshow">
+    <thead>
+        <tr *ngFor="let headRows of counter(MatrixTable.headRow);let i = index;let MainHeadinglast = last">        
+            <ng-container *ngIf="MatrixTable.tableHead[i]?.subHeader; else subHeaderContainer">
+                <ng-container *ngFor="let primary of MatrixTable.tableHead">
+                    <ng-container  *ngFor="let secondary of  primary?.subHeader;let j = index;let last = last">
+                        <ng-container *ngIf="!MainHeadinglast">
+                            <th [attr.colspan]="secondary.cols">
+                                {{secondary.headerName}}
+                            </th>
+                        </ng-container>
+                        <ng-container *ngIf="MainHeadinglast">
+                            <ng-container *ngFor="let tertiary of secondary?.subHeader;let k = index">
+                            <th [attr.colspan]="tertiary.cols">
+                                {{tertiary.headerName}}
+                            </th>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+            <ng-template #subHeaderContainer>
+                <th [attr.rowspan]="primary.rows" [attr.colspan]="primary.cols" *ngFor="let primary of MatrixTable.tableHead;let j = index">
+                    {{primary.headerName}}
+                </th>
+            </ng-template>               
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let data of addrows;let dataIndex =index">           
+                 
+                        <ng-container  *ngFor="let primary of MatrixTable.tableHead ; let i =index">
+                           
+                                <ng-container *ngIf="MatrixTable.tableHead[i]?.index; else subContainer">                  
+                                    <td class="text-center">{{date_period}}</td> 
+
+                                </ng-container>                           
+                                <ng-template #subContainer>       
+                                   
+                                        <ng-container  *ngFor="let secondary of  primary?.subHeader; let j = index">
+                                           
+                                               
+                                                    <ng-container *ngFor="let tertiary of secondary?.subHeader;let k = index">
+                                                         
+                                                                <td class="text-center" [attr.rowspan]="tertiary.cols">
+                                                                    <input type="text"class="cls-input"  formControName="valueBox">
+                                                                </td> 
+                                                                                   
+                                                        </ng-container> 
+                                               
+                                           
+                                        </ng-container>   
+                                                                
+                                </ng-template>
+                           
+                        </ng-container> 
+                                
+            </tr>     
+    </tbody>
+</table>
+</form>
